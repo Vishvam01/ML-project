@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FarmWise 🌾</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --btn-bg: #28a745;
+        --btn-hover: #218838;
+      }
+
+      body {
+        background-image: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1500&q=80");
+        background-size: cover;
+        background-position: center;
+        font-family: "Segoe UI", sans-serif;
+        color: #333;
+        transition: background-color 0.4s, color 0.4s;
+        backdrop-filter: blur(3px);
+      }
+
+      body.dark {
+        background-image: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80");
+        color: #f5f5f5;
+      }
+
+      body.green {
+        background-image: url("https://images.pexels.com/photos/833895/pexels-photo-833895.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+        color: #2b512b;
+      }
+
+      .container {
+        max-width: 700px;
+        margin-top: 60px;
+      }
+
+      .card {
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.4s;
+      }
+
+      body.dark .card {
+        background-color: rgba(42, 42, 64, 0.9);
+      }
+
+      body.green .card {
+        background-color: rgba(225, 248, 217, 0.9);
+      }
+
+      .form-control {
+        background-color: #fff;
+        color: #000;
+      }
+
+      .btn-custom {
+        background-color: var(--btn-bg);
+        color: #fff;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-custom:hover {
+        background-color: var(--btn-hover);
+      }
+
+      .theme-toggle button {
+        margin: 0 5px;
+      }
+
+      .stickers {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      .stickers img {
+        width: 50px;
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Optional Sticker Icons -->
+    <div class="stickers">
+      <img
+        src="https://img.icons8.com/emoji/48/tractor-emoji.png"
+        alt="Tractor"
+      />
+      <img src="https://img.icons8.com/emoji/48/seedling.png" alt="Seedling" />
+    </div>
+
+    <div class="container">
+      <div class="card p-4">
+        <div class="card-body">
+          <h2 class="text-center mb-4">🌱 FarmWise</h2>
+
+          <!-- Theme Switcher -->
+          <div class="d-flex justify-content-center mb-4 theme-toggle">
+            <button class="btn btn-outline-secondary" onclick="setTheme('')">
+              ☀ Light
+            </button>
+            <button class="btn btn-outline-dark" onclick="setTheme('dark')">
+              🌙 Dark
+            </button>
+            <button class="btn btn-outline-success" onclick="setTheme('green')">
+              🌿 Green
+            </button>
+          </div>
+
+          <!-- Form -->
+          <form id="cropForm">
+            <div class="mb-3">
+              <label class="form-label">Nitrogen (N)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="nitrogen"
+                placeholder="Enter Nitrogen value"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Phosphorus (P)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="phosphorus"
+                placeholder="Enter Phosphorus value"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Potassium (K)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="potassium"
+                placeholder="Enter Potassium value"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Temperature (°C)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="temperature"
+                placeholder="Enter Temperature"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Humidity (%)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="humidity"
+                placeholder="Enter Humidity"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"
+                >Soil Type (1-Clayey, 2-Loamy, 3-Sandy)</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="soilType"
+                placeholder="Enter Soil Type"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">pH Level</label>
+              <input
+                type="number"
+                step="0.1"
+                class="form-control"
+                id="ph"
+                placeholder="Enter pH level"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Rainfall (mm)</label>
+              <input
+                type="number"
+                class="form-control"
+                id="rainfall"
+                placeholder="Enter Rainfall"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-custom w-100">
+              🚜 Predict Crop
+            </button>
+          </form>
+
+          <!-- Result Display -->
+          <div class="mt-4 text-center">
+            <h5 id="result"></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS for Theme and API -->
+    <script>
+      function setTheme(theme) {
+        document.body.className = theme;
+        localStorage.setItem("theme", theme);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedTheme = localStorage.getItem("theme") || "";
+        setTheme(savedTheme);
+      });
+
+      document
+        .getElementById("cropForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const data = {
+            "Nitrogen (N)": +document.getElementById("nitrogen").value,
+            "Phosphorus (P)": +document.getElementById("phosphorus").value,
+            "Potassium (K)": +document.getElementById("potassium").value,
+            "Temperature (°C)": +document.getElementById("temperature").value,
+            "Humidity (%)": +document.getElementById("humidity").value,
+            "Soil Type": +document.getElementById("soilType").value,
+            "pH Level": +document.getElementById("ph").value,
+            "Rainfall (mm)": +document.getElementById("rainfall").value,
+          };
+
+          try {
+            const response = await fetch("/predict", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            document.getElementById("result").innerText =
+              result["Recommended Crop"] || "⚠ Error: " + result.error;
+          } catch (err) {
+            document.getElementById("result").innerText =
+              "❌ Failed to connect to server.";
+          }
+        });
+    </script>
+  </body>
+</html>
